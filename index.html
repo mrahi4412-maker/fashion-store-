@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rahi Nur Official Fashion Store</title>
+  <meta name="description" content="Rahi Nur Official Fashion Store - Ladies, Kids and Jewelry">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<header class="top">
+  <div class="wrap nav">
+
+    <a class="logo" href="index.html">
+      <span>RN</span>
+      <b>
+        Rahi Nur
+        <small>OFFICIAL FASHION STORE</small>
+      </b>
+    </a>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#ladies">Ladies</a>
+      <a href="#kids">Kids</a>
+      <a href="#jewelry">Jewelry</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <button class="cart" onclick="Store.openCart()">
+      🛍 Cart <i id="cartCount">0</i>
+    </button>
+
+  </div>
+</header>
+
+
+<section id="home" class="hero">
+
+  <div class="wrap hero-grid">
+
+    <div>
+      <span class="eyebrow">RAHI NUR • NEW COLLECTION</span>
+
+      <h1>
+        Modern fashion.
+        <br>
+        <em>Beautifully yours.</em>
+      </h1>
+
+      <p>
+        Premium ladies and kids fashion with elegant jewelry
+        for every occasion.
+      </p>
+
+      <div class="actions">
+        <a class="btn" href="#shop">Shop Now</a>
+
+        <a
+          class="btn ghost"
+          href="https://wa.me/919744778211"
+          target="_blank"
+        >
+          WhatsApp Us
+        </a>
+      </div>
+    </div>
+
+
+    <div class="hero-art">
+
+      <div class="seal">RN</div>
+
+      <strong>RAHI NUR</strong>
+
+      <small>
+        FASHION • KIDS • JEWELRY
+      </small>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="features">
+
+  <div class="wrap feature-grid">
+
+    <div>
+      🚚 <b>Easy Orders</b>
+      <small>Simple checkout</small>
+    </div>
+
+    <div>
+      💎 <b>Premium Style</b>
+      <small>Curated collections</small>
+    </div>
+
+    <div>
+      💬 <b>WhatsApp Support</b>
+      <small>9744778211</small>
+    </div>
+
+    <div>
+      ⭐ <b>Customer Reviews</b>
+      <small>Customer feedback</small>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="shop" class="section">
+
+  <div class="wrap">
+
+    <div class="heading">
+
+      <div>
+        <span class="eyebrow">COLLECTION</span>
+        <h2>Shop the latest</h2>
+      </div>
+
+      <input
+        id="search"
+        oninput="Store.render()"
+        placeholder="Search products..."
+      >
+
+    </div>
+
+
+    <div class="filters">
+
+      <button class="active" data-cat="All">
+        All
+      </button>
+
+      <button data-cat="Ladies">
+        Ladies
+      </button>
+
+      <button data-cat="Kids">
+        Kids
+      </button>
+
+      <button data-cat="Jewelry">
+        Jewelry
+      </button>
+
+    </div>
+
+
+    <div id="products" class="grid"></div>
+
+  </div>
+
+</section>
+
+
+<section class="banner">
+
+  <div class="wrap banner-in">
+
+    <div>
+      <span class="eyebrow">PREMIUM EDIT</span>
+
+      <h2>
+        Style for every moment.
+      </h2>
+    </div>
+
+    <a class="btn light" href="#shop">
+      Explore
+    </a>
+
+  </div>
+
+</section>
+
+
+<section id="reviews" class="section">
+
+  <div class="wrap">
+
+    <span class="eyebrow">
+      CUSTOMER LOVE
+    </span>
+
+    <h2>
+      What customers say
+    </h2>
+
+    <div
+      id="reviewsList"
+      class="review-grid"
+    ></div>
+
+
+    <form
+      id="reviewForm"
+      class="review-form"
+    >
+
+      <h3>
+        Leave a review
+      </h3>
+
+      <input
+        name="name"
+        required
+        placeholder="Your name"
+      >
+
+      <select name="rating">
+
+        <option value="5">5 Stars</option>
+        <option value="4">4 Stars</option>
+        <option value="3">3 Stars</option>
+        <option value="2">2 Stars</option>
+        <option value="1">1 Star</option>
+
+      </select>
+
+      <textarea
+        name="text"
+        required
+        placeholder="Write your review"
+      ></textarea>
+
+      <button class="btn">
+        Submit Review
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<section id="contact" class="section contact">
+
+  <div class="wrap contact-grid">
+
+    <div>
+
+      <span class="eyebrow">
+        CONTACT
+      </span>
+
+      <h2>
+        Rahi Nur Official Fashion Store
+      </h2>
+
+      <p>
+        Luahagachhi, Madhya Talbari,
+        Goalpokhar-I, Uttar Dinajpur,
+        West Bengal – 733210
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <p>
+        <b>Phone / WhatsApp</b>
+        <br>
+
+        <a href="tel:+919744778211">
+          +91 97447 78211
+        </a>
+      </p>
+
+      <p>
+        <b>Email</b>
+        <br>
+
+        <a href="mailto:mrahi4412@gmail.com">
+          mrahi4412@gmail.com
+        </a>
+      </p>
+
+      <a
+        class="btn"
+        href="https://wa.me/919744778211"
+        target="_blank"
+      >
+        Chat on WhatsApp
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer>
+
+  <div class="wrap foot">
+
+    <span>
+      © 2026 Rahi Nur Official Fashion Store
+    </span>
+
+    <a href="admin.html">
+      Admin Panel
+    </a>
+
+  </div>
+
+</footer>
+
+
+<div
+  id="cartModal"
+  class="modal hide"
+>
+
+  <div class="modalbox">
+
+    <button
+      class="x"
+      onclick="Store.closeCart()"
+    >
+      ×
+    </button>
+
+    <h2>
+      Your Cart
+    </h2>
+
+    <div id="cartItems"></div>
+
+    <div class="total">
+
+      Total
+
+      <b id="cartTotal">
+        ₹0
+      </b>
+
+    </div>
+
+    <button
+      class="btn full"
+      onclick="Store.checkout()"
+    >
+      Checkout
+    </button>
+
+  </div>
+
+</div>
+
+
+<script src="assets/js/store.js"></script>
+
+</body>
+</html>
