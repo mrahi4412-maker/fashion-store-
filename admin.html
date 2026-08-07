@@ -1,0 +1,196 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1"
+>
+
+<title>
+Rahi Nur Admin
+</title>
+
+<link
+  rel="stylesheet"
+  href="assets/css/style.css"
+>
+
+</head>
+
+
+<body class="admin">
+
+<div class="wrap">
+
+
+<header class="adminhead">
+
+<a
+  class="logo"
+  href="index.html"
+>
+
+<span>RN</span>
+
+<b>
+Rahi Nur
+<small>ADMIN PANEL</small>
+</b>
+
+</a>
+
+
+<a href="index.html">
+← Store
+</a>
+
+</header>
+
+
+<div
+  id="login"
+  class="login card"
+>
+
+<h1>
+Admin Login
+</h1>
+
+<p class="muted">
+Demo login only.
+</p>
+
+
+<input
+  id="adminUser"
+  placeholder="Username"
+  value="admin"
+>
+
+
+<input
+  id="adminPass"
+  type="password"
+  placeholder="Password"
+  value="admin123"
+>
+
+
+<button
+  class="btn full"
+  onclick="Admin.login()"
+>
+Login
+</button>
+
+</div>
+
+
+<div
+  id="panel"
+  class="hide"
+>
+
+
+<div class="stats">
+
+<div class="stat">
+<small>Products</small>
+<b id="sProducts">0</b>
+</div>
+
+<div class="stat">
+<small>Orders</small>
+<b id="sOrders">0</b>
+</div>
+
+<div class="stat">
+<small>Reviews</small>
+<b id="sReviews">0</b>
+</div>
+
+<div class="stat">
+<small>Cart Items</small>
+<b id="sCart">0</b>
+</div>
+
+</div>
+
+
+<section class="card">
+
+<div class="heading">
+
+<div>
+
+<span class="eyebrow">
+CATALOG
+</span>
+
+<h2>
+Products
+</h2>
+
+</div>
+
+
+<button
+  class="btn"
+  onclick="Admin.addProduct()"
+>
+Add Product
+</button>
+
+</div>
+
+
+<div id="adminProducts"></div>
+
+</section>
+
+
+<section class="card">
+
+<span class="eyebrow">
+ORDERS
+</span>
+
+<h2>
+Orders
+</h2>
+
+<div id="orders"></div>
+
+</section>
+
+
+<section class="card">
+
+<span class="eyebrow">
+REVIEWS
+</span>
+
+<h2>
+Reviews
+</h2>
+
+<div id="adminReviews"></div>
+
+</section>
+
+
+</div>
+
+</div>
+
+
+<script src="assets/js/admin.js"></script>
+
+</body>
+
+</html>
