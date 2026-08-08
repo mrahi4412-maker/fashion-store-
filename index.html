@@ -3,213 +3,426 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rahi Nur | Premium Fashion</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Rahi Nur | Official Fashion Store</title>
+    <!-- Google Fonts exactly like the design -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* CSS (Visually matching your photo) */
+        /* ================= 1. GLOBAL & RESET ================= */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background: #0a0a0a; color: #fff; }
-        
-        /* Top Bar */
-        .top-bar { background: #2b060d; padding: 10px 5%; font-size: 11px; display: flex; justify-content: space-between; border-bottom: 1px solid #4a0d17; }
-        .top-bar span { margin-right: 20px; color: #ccc; }
-        .top-bar i { color: #d4af37; margin-right: 5px; }
+        body { font-family: 'Montserrat', sans-serif; background: #ffffff; color: #333; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        button { cursor: pointer; font-family: 'Montserrat', sans-serif; }
+        .cursive { font-family: 'Great Vibes', cursive; }
+        .serif { font-family: 'Playfair Display', serif; }
 
-        /* Header */
-        header { padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; background: #111; }
-        .logo { text-align: center; }
-        .logo h1 { font-family: 'Playfair Display', serif; color: #d4af37; font-size: 36px; letter-spacing: 2px; }
-        
-        .search-bar { flex: 1; max-width: 400px; margin: 0 30px; position: relative; }
-        .search-bar input { width: 100%; padding: 10px 20px; border-radius: 20px; border: 1px solid #333; background: #000; color: #fff; }
-        
-        .icons { display: flex; gap: 20px; }
-        .icon-btn { text-align: center; cursor: pointer; color: #ccc; font-size: 12px; position: relative; }
-        .icon-btn i { font-size: 20px; display: block; margin-bottom: 5px; color: #fff; }
-        .badge { position: absolute; top: -5px; right: 5px; background: #d4af37; color: #000; font-size: 10px; font-weight: bold; padding: 2px 5px; border-radius: 50%; }
+        /* ================= 2. TOP BAR ================= */
+        .top-bar { background: #260b0f; color: #fff; padding: 8px 5%; font-size: 11px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3d141d; }
+        .top-bar-left span { margin-right: 25px; display: inline-flex; align-items: center; gap: 5px; color: #ddd; }
+        .top-bar-left i { color: #d4af37; font-size: 14px; }
+        .top-bar-right { display: flex; gap: 15px; align-items: center; }
 
-        /* Nav */
-        nav { background: #4a0d17; display: flex; justify-content: center; }
-        nav a { color: #fff; text-decoration: none; padding: 15px 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
-        nav a:hover { color: #000; background: #d4af37; }
-
-        /* Products Grid */
-        .section-title { text-align: center; padding: 40px 0 20px; font-family: 'Playfair Display', serif; font-size: 28px; color: #d4af37; }
-        .products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 0 5% 50px; }
-        .product-card { background: #1a1a1a; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #333; }
-        .product-card img { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; }
-        .product-card h4 { font-size: 14px; margin: 15px 0 5px; font-weight: 500; }
-        .product-card p { color: #d4af37; font-weight: bold; font-size: 16px; margin-bottom: 15px; }
-        .btn-add { background: #d4af37; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 4px; width: 100%; }
+        /* ================= 3. MAIN HEADER ================= */
+        header { background: #0c0808; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; color: white; }
         
-        /* Modal (Cart & Admin) */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-content { background: #111; border: 1px solid #d4af37; padding: 30px; border-radius: 8px; width: 400px; max-width: 90%; color: white; }
-        .modal-header { display: flex; justify-content: space-between; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 22px; color: #d4af37; }
-        .close-btn { cursor: pointer; color: #fff; font-size: 20px; }
-        
-        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; border-bottom: 1px solid #333; padding-bottom: 5px; }
-        .cart-total { font-weight: bold; font-size: 18px; text-align: right; margin: 20px 0; color: #d4af37; }
-        .btn-checkout { background: #25D366; color: white; border: none; padding: 12px; width: 100%; font-weight: bold; cursor: pointer; border-radius: 4px; font-size: 16px; }
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo-circle { width: 80px; height: 80px; border: 2px solid #d4af37; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 40px; color: #ff3366; position: relative; }
+        .logo-circle::before { content: '👑'; position: absolute; top: -15px; font-size: 24px; color: #d4af37; }
+        .logo-text h1 { color: #d4af37; font-size: 32px; letter-spacing: 3px; font-weight: 600; line-height: 1; }
+        .logo-text p { font-size: 10px; letter-spacing: 4px; color: #aaa; margin-top: 5px; }
 
-        /* Admin Form */
-        .admin-input { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #333; background: #222; color: white; }
+        .header-middle { flex: 1; max-width: 600px; display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 0 40px; }
+        .contact-row { display: flex; gap: 20px; font-size: 11px; color: #ccc; width: 100%; justify-content: space-between; }
+        .contact-row i { color: #d4af37; margin-right: 5px; }
+        
+        .search-bar { width: 100%; position: relative; }
+        .search-bar input { width: 100%; padding: 12px 20px; border-radius: 30px; border: 1px solid #333; background: transparent; color: #fff; font-size: 12px; outline: none; }
+        .search-bar i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #fff; }
+
+        .header-icons { display: flex; gap: 25px; }
+        .icon-btn { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: #aaa; position: relative; cursor: pointer; }
+        .icon-btn i { font-size: 22px; margin-bottom: 5px; color: #fff; }
+        .cart-badge { position: absolute; top: -5px; right: 0; background: #ff3366; color: #fff; font-size: 10px; font-weight: bold; width: 16px; height: 16px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+
+        /* ================= 4. NAVIGATION BAR ================= */
+        nav { background: #3c0918; border-top: 1px solid #4f1122; border-bottom: 2px solid #260b0f; padding-left: 5%; display: flex; align-items: center; }
+        nav a { color: #fff; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 18px 25px; letter-spacing: 1px; display: inline-block; }
+        nav a.active { background: #d4af37; color: #000; }
+        nav a:hover:not(.active) { color: #d4af37; }
+
+        /* ================= 5. HERO SECTION ================= */
+        .hero { height: 450px; background: linear-gradient(to right, rgba(20,5,5,0.9) 30%, rgba(20,5,5,0.4) 100%), url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=2000') center/cover; position: relative; display: flex; align-items: center; padding: 0 10%; color: white; }
+        .hero-content { max-width: 500px; text-align: center; }
+        .hero-content h3 { color: #d4af37; font-size: 36px; margin-bottom: 5px; font-weight: 400; }
+        .hero-content h2 { font-size: 42px; line-height: 1.2; letter-spacing: 2px; margin-bottom: 15px; font-weight: 600; text-transform: uppercase; }
+        .hero-content p { font-size: 12px; letter-spacing: 3px; font-weight: 600; margin-bottom: 30px; }
+        .btn-gold { background: #d4af37; color: #000; padding: 12px 35px; border: none; font-weight: 700; font-size: 13px; border-radius: 3px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* ================= 6. CATEGORY BOXES ================= */
+        .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 30px 5%; background: #fff; }
+        .cat-box { border-radius: 8px; padding: 25px 20px; display: flex; flex-direction: column; justify-content: center; position: relative; height: 180px; overflow: hidden; }
+        .cat-box h4 { font-size: 16px; font-weight: 700; margin-bottom: 5px; color: #333; line-height: 1.2; }
+        .cat-box p { font-size: 11px; color: #555; margin-bottom: 15px; }
+        .cat-box .btn-dark { background: #111; color: #fff; padding: 8px 20px; font-size: 10px; font-weight: 700; border: none; width: fit-content; border-radius: 3px; text-transform: uppercase; z-index: 2; position: relative; }
+        .cat-box img { position: absolute; right: 0; bottom: 0; height: 100%; object-fit: contain; z-index: 1; }
+        
+        .cat-1 { background: #f3e5e5; }
+        .cat-2 { background: #faecec; }
+        .cat-3 { background: #13271d; color: #fff; }
+        .cat-3 h4, .cat-3 p { color: #fff; }
+        .cat-4 { background: #f4ecce; }
+
+        /* ================= 7. FEATURES BAR ================= */
+        .features-bar { display: flex; justify-content: space-between; padding: 20px 5%; background: #faf8f5; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin-bottom: 40px; }
+        .feat-item { display: flex; align-items: center; gap: 15px; }
+        .feat-item i { font-size: 28px; color: #d4af37; }
+        .feat-item h5 { font-size: 12px; font-weight: 700; margin-bottom: 3px; color: #222; text-transform: uppercase; }
+        .feat-item p { font-size: 11px; color: #777; }
+
+        /* ================= 8. FEATURED PRODUCTS ================= */
+        .section-header { display: flex; justify-content: center; align-items: center; padding: 0 5% 30px; position: relative; }
+        .section-header h2 { font-size: 24px; color: #621429; font-weight: 700; letter-spacing: 1px; }
+        .view-all { position: absolute; right: 5%; font-size: 12px; color: #ff3366; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        
+        .products-container { display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px; padding: 0 5% 60px; }
+        .prod-card { background: #fff; text-align: center; border-radius: 8px; position: relative; padding-bottom: 15px; border: 1px solid #f0f0f0; transition: box-shadow 0.3s; }
+        .prod-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+        .prod-card img { width: 100%; height: 200px; object-fit: cover; border-top-left-radius: 8px; border-top-right-radius: 8px; background: #f5f5f5; }
+        
+        .badge-new { position: absolute; top: 10px; left: 10px; background: #ff3366; color: white; padding: 4px 8px; font-size: 9px; font-weight: 700; border-radius: 12px; }
+        .wishlist-circle { position: absolute; top: 10px; right: 10px; background: #fff; width: 25px; height: 25px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #999; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 12px; cursor: pointer; }
+        
+        .prod-title { font-size: 11px; font-weight: 600; color: #444; margin: 15px 10px 5px; line-height: 1.3; }
+        .prod-price { font-size: 14px; font-weight: 700; color: #ff3366; margin-bottom: 10px; }
+        .add-to-cart-btn { background: #fff; border: 1px solid #d4af37; color: #333; padding: 6px 12px; font-size: 10px; border-radius: 4px; font-weight: 700; cursor: pointer; }
+        .add-to-cart-btn:hover { background: #d4af37; color: #000; }
+
+        /* ================= 9. BOTTOM PROMO BAR ================= */
+        .bottom-promo { background: #260b0f; color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #3c0918; }
+        .promo-code { display: flex; align-items: center; gap: 15px; font-size: 11px; font-weight: 600; }
+        .promo-code span { color: #d4af37; letter-spacing: 1px; }
+        .promo-box { border: 1px solid #d4af37; padding: 6px 15px; border-radius: 3px; }
+        .whatsapp-large { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .whatsapp-large i { color: #25D366; font-size: 24px; }
+        .trust-icons { display: flex; gap: 20px; font-size: 10px; color: #ccc; }
+        .trust-icons div { display: flex; align-items: center; gap: 8px; }
+        .trust-icons i { color: #d4af37; font-size: 16px; }
+
+        /* ================= MODALS (Admin & Cart) ================= */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-content { background: #fff; padding: 30px; border-radius: 8px; width: 90%; max-width: 450px; color: #333; }
+        .modal-header { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 20px; font-weight: bold; color: #3c0918; }
+        .close-btn { cursor: pointer; color: #999; font-size: 24px; }
+        .admin-input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Montserrat'; }
+        
+        /* Admin Dashboard (Hidden by default) */
+        #admin-dashboard { display: none; background: #f8f8f8; padding: 40px 5%; min-height: 100vh; }
+        .admin-card { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
     </style>
 </head>
 <body>
 
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <div><span><i class="fas fa-truck"></i> FREE SHIPPING ABOVE ₹999</span></div>
-        <div><span><i class="fab fa-whatsapp"></i> +91 97447 78211</span></div>
-    </div>
-
-    <!-- HEADER -->
-    <header>
-        <div class="logo">
-            <h1>RAHI NUR</h1>
-            <p style="font-size: 10px; letter-spacing: 2px;">OFFICIAL FASHION STORE</p>
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search for products...">
-        </div>
-        <div class="icons">
-            <div class="icon-btn" onclick="openAdmin()">
-                <i class="far fa-user"></i> Admin
+    <!-- ================= MAIN STOREFRONT ================= -->
+    <div id="storefront">
+        
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <span><i class="fas fa-truck"></i> FREE SHIPPING on order above ₹999</span>
+                <span><i class="fas fa-money-bill-wave"></i> COD Available</span>
+                <span><i class="fas fa-undo"></i> 7 Days Easy Returns</span>
             </div>
-            <div class="icon-btn" onclick="openCart()">
-                <i class="fas fa-shopping-cart"></i> Cart
-                <div class="badge" id="cart-count">0</div>
+            <div class="top-bar-right">
+                <span>Download Our App &nbsp; <i class="fab fa-apple"></i> &nbsp; <i class="fab fa-android"></i></span>
             </div>
         </div>
-    </header>
 
-    <!-- NAV -->
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Ladies Fashion</a>
-        <a href="#">Kids Fashion</a>
-        <a href="#">Jewelry</a>
-    </nav>
+        <!-- HEADER -->
+        <header>
+            <div class="logo-area">
+                <div class="logo-circle">RN</div>
+                <div class="logo-text">
+                    <h1 class="serif">RAHI NUR</h1>
+                    <p>— OFFICIAL FASHION STORE —</p>
+                </div>
+            </div>
 
-    <!-- PRODUCTS -->
-    <h2 class="section-title">FEATURED PRODUCTS</h2>
-    <div class="products">
-        <!-- Product 1 -->
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1583391733958-d6510165213d?w=400" alt="Kurti">
-            <h4>Premium Cotton Kurti</h4>
-            <p>₹799</p>
-            <button class="btn-add" onclick="addToCart('Premium Cotton Kurti', 799)">Add to Cart</button>
+            <div class="header-middle">
+                <div class="contact-row">
+                    <span><i class="fas fa-phone-alt"></i> 9744778211</span>
+                    <span><i class="fas fa-envelope"></i> mrahi4412@gmail.com</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Luahagachhi, Madhya Talbari, West Bengal</span>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for products...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+
+            <div class="header-icons">
+                <div class="icon-btn">
+                    <i class="far fa-heart"></i>
+                    <span>Wishlist</span>
+                </div>
+                <div class="icon-btn" onclick="openCart()">
+                    <div class="cart-badge" id="cart-count">0</div>
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                </div>
+                <div class="icon-btn" onclick="openAdminLogin()">
+                    <i class="far fa-user"></i>
+                    <span>Login / Register</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- NAVIGATION -->
+        <nav>
+            <a href="#" class="active">HOME</a>
+            <a href="#">LADIES FASHION <i class="fas fa-angle-down"></i></a>
+            <a href="#">KIDS FASHION <i class="fas fa-angle-down"></i></a>
+            <a href="#">JEWELRY <i class="fas fa-angle-down"></i></a>
+            <a href="#">NEW ARRIVALS</a>
+            <a href="#">BEST SELLERS</a>
+            <a href="#">OFFERS</a>
+        </nav>
+
+        <!-- HERO BANNER -->
+        <div class="hero">
+            <div class="hero-content">
+                <h3 class="cursive">Shine with Elegance</h3>
+                <h2 class="serif">FASHION & JEWELRY<br>FOR EVERY YOU</h2>
+                <p>PREMIUM QUALITY • TRENDY DESIGNS • BEST PRICES</p>
+                <button class="btn-gold">SHOP NOW</button>
+            </div>
         </div>
-        <!-- Product 2 -->
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400" alt="Suit">
-            <h4>Designer Anarkali Suit</h4>
-            <p>₹1599</p>
-            <button class="btn-add" onclick="addToCart('Designer Anarkali Suit', 1599)">Add to Cart</button>
+
+        <!-- CATEGORIES -->
+        <div class="categories-grid">
+            <div class="cat-box cat-1">
+                <h4>LADIES<br>FASHION</h4>
+                <p>Stylish • Elegant • You</p>
+                <button class="btn-dark">SHOP NOW</button>
+            </div>
+            <div class="cat-box cat-2">
+                <h4>KIDS<br>FASHION</h4>
+                <p>Trendy & Comfortable</p>
+                <button class="btn-dark">SHOP NOW</button>
+            </div>
+            <div class="cat-box cat-3">
+                <h4>JEWELRY<br>COLLECTION</h4>
+                <p>Shine Every Moment</p>
+                <button class="btn-dark">SHOP NOW</button>
+            </div>
+            <div class="cat-box cat-4">
+                <h4>NEW<br>ARRIVALS</h4>
+                <p>Check Out Now</p>
+                <button class="btn-dark">SHOP NOW</button>
+            </div>
         </div>
-        <!-- Product 3 -->
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1599643478524-fb66f7ca066b?w=400" alt="Jewelry">
-            <h4>Gold Plated Necklace</h4>
-            <p>₹1299</p>
-            <button class="btn-add" onclick="addToCart('Gold Plated Necklace', 1299)">Add to Cart</button>
+
+        <!-- FEATURES -->
+        <div class="features-bar">
+            <div class="feat-item"><i class="fas fa-truck-fast"></i><div><h5>FREE SHIPPING</h5><p>On order above ₹999</p></div></div>
+            <div class="feat-item"><i class="fas fa-shield-alt"></i><div><h5>SECURE PAYMENT</h5><p>100% Safe & Secure</p></div></div>
+            <div class="feat-item"><i class="fas fa-box-open"></i><div><h5>EASY RETURNS</h5><p>7 Days Return Policy</p></div></div>
+            <div class="feat-item"><i class="fas fa-hand-holding-usd"></i><div><h5>COD AVAILABLE</h5><p>Pay on Delivery</p></div></div>
+            <div class="feat-item"><i class="fas fa-headset"></i><div><h5>24/7 SUPPORT</h5><p>We are Always Here</p></div></div>
         </div>
-        <!-- Product 4 -->
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1621447504864-d86b7294fb8e?w=400" alt="Kids">
-            <h4>Kids Party Dress</h4>
-            <p>₹699</p>
-            <button class="btn-add" onclick="addToCart('Kids Party Dress', 699)">Add to Cart</button>
+
+        <!-- PRODUCTS SECTION -->
+        <div class="section-header">
+            <h2 class="serif">FEATURED PRODUCTS</h2>
+            <div class="view-all">VIEW ALL</div>
+        </div>
+
+        <div class="products-container" id="productGrid">
+            <!-- Dynamic products will load here -->
+        </div>
+
+        <!-- BOTTOM PROMO -->
+        <div class="bottom-promo">
+            <div class="promo-code">
+                <i class="fas fa-tags" style="font-size:24px; color:#d4af37;"></i>
+                <span>EXTRA 10% OFF<br>ON PREPAID ORDERS</span>
+                <div class="promo-box">USE CODE: RAHINUR10</div>
+            </div>
+            <div class="whatsapp-large">
+                <span style="font-size:12px; font-weight:400;">WHATSAPP US</span><br>
+                <i class="fab fa-whatsapp"></i> 9744778211
+            </div>
+            <div class="trust-icons">
+                <div><i class="fas fa-medal"></i> Quality<br>Products</div>
+                <div><i class="fas fa-tags"></i> Best<br>Prices</div>
+                <div><i class="fas fa-store"></i> Trusted<br>Store</div>
+                <div><i class="fas fa-smile"></i> Happy<br>Customers</div>
+            </div>
+        </div>
+
+    </div> <!-- End Storefront -->
+
+    <!-- ================= ADMIN DASHBOARD ================= -->
+    <div id="admin-dashboard">
+        <div style="display:flex; justify-content:space-between; margin-bottom:30px;">
+            <h2 class="serif" style="color:#3c0918;">Admin Dashboard</h2>
+            <button onclick="logoutAdmin()" class="btn-gold">Log Out</button>
+        </div>
+        
+        <div class="admin-card">
+            <h3 style="margin-bottom:20px;">Add New Product</h3>
+            <input type="text" id="p-name" class="admin-input" placeholder="Product Name (e.g., Premium Cotton Kurti)">
+            <input type="number" id="p-price" class="admin-input" placeholder="Price in ₹ (e.g., 799)">
+            <input type="text" id="p-image" class="admin-input" placeholder="Image URL">
+            <button onclick="addProduct()" class="btn-gold" style="width:100%;">Add to Store</button>
+        </div>
+        
+        <div class="admin-card">
+            <h3>Current Products</h3>
+            <div id="admin-list" style="margin-top:20px;"></div>
         </div>
     </div>
 
-    <!-- CART MODAL -->
+    <!-- ================= MODALS ================= -->
+    
+    <!-- Admin Login Modal -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>Admin Access</span>
+                <i class="fas fa-times close-btn" onclick="closeAdminLogin()"></i>
+            </div>
+            <input type="password" id="adminPass" class="admin-input" placeholder="Enter Password (admin123)">
+            <button onclick="verifyAdmin()" class="btn-gold" style="width:100%;">Login</button>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
     <div class="modal" id="cartModal">
         <div class="modal-content">
             <div class="modal-header">
-                <span>Your Cart</span>
-                <span class="close-btn" onclick="closeCart()">&times;</span>
+                <span>Shopping Cart</span>
+                <i class="fas fa-times close-btn" onclick="closeCart()"></i>
             </div>
-            <div id="cartItemsList">
-                <!-- Items will appear here -->
-            </div>
-            <div class="cart-total" id="cartTotalDisplay">Total: ₹0</div>
-            <button class="btn-checkout" onclick="checkoutWhatsApp()"><i class="fab fa-whatsapp"></i> Order on WhatsApp</button>
+            <div id="cartItems" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;"></div>
+            <h3 style="text-align:right; color:#ff3366; margin-bottom: 20px;" id="cartTotalDisplay">Total: ₹0</h3>
+            <button onclick="checkoutWhatsApp()" class="btn-gold" style="width:100%; background:#25D366; color:white;"><i class="fab fa-whatsapp"></i> Order on WhatsApp</button>
         </div>
     </div>
 
-    <!-- ADMIN LOGIN MODAL -->
-    <div class="modal" id="adminModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span>Admin Login</span>
-                <span class="close-btn" onclick="closeAdmin()">&times;</span>
-            </div>
-            <p style="font-size: 12px; color: #aaa; margin-bottom: 20px;">*Note: Because this site is on GitHub Pages, a real secure database login requires upgrading to a backend server.*</p>
-            <input type="text" class="admin-input" placeholder="Admin Username">
-            <input type="password" class="admin-input" placeholder="Password">
-            <button class="btn-add" onclick="fakeLogin()">Login</button>
-        </div>
-    </div>
-
-    <!-- JAVASCRIPT FOR REAL ORDER LOGIC -->
+    <!-- ================= JAVASCRIPT ================= -->
     <script>
-        // 1. Cart System Logic
-        let cart = [];
-        let total = 0;
+        // Default Products Matching the Image exactly
+        const defaultProducts = [
+            { id: 1, name: "Premium Cotton Kurti", price: 799, img: "https://images.unsplash.com/photo-1583391733958-d6510165213d?w=400" },
+            { id: 2, name: "Designer Anarkali Suit", price: 1599, img: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400" },
+            { id: 3, name: "Printed Saree", price: 999, img: "https://images.unsplash.com/photo-1610030469649-6f9175d71c8c?w=400" },
+            { id: 4, name: "Gold Plated Necklace Set", price: 1299, img: "https://images.unsplash.com/photo-1599643478524-fb66f7ca066b?w=400" },
+            { id: 5, name: "Kids Party Dress", price: 699, img: "https://images.unsplash.com/photo-1621447504864-d86b7294fb8e?w=400" },
+            { id: 6, name: "Oxidized Jhumka Earrings", price: 399, img: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400" }
+        ];
 
-        function addToCart(itemName, itemPrice) {
-            cart.push({ name: itemName, price: itemPrice });
-            total += itemPrice;
-            document.getElementById('cart-count').innerText = cart.length;
-            alert(itemName + " added to cart!");
-            updateCartUI();
+        let productsDB = JSON.parse(localStorage.getItem('rn_shop')) || defaultProducts;
+
+        // Load Products to Store
+        function loadProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            productsDB.forEach((p, index) => {
+                grid.innerHTML += `
+                    <div class="prod-card">
+                        <div class="badge-new">NEW</div>
+                        <div class="wishlist-circle"><i class="far fa-heart"></i></div>
+                        <img src="${p.img}" alt="${p.name}">
+                        <h4 class="prod-title">${p.name}</h4>
+                        <p class="prod-price">₹${p.price}</p>
+                        <button class="add-to-cart-btn" onclick="addToCart('${p.name}', ${p.price})">ADD TO CART</button>
+                    </div>
+                `;
+            });
         }
 
-        function updateCartUI() {
-            const cartList = document.getElementById('cartItemsList');
-            cartList.innerHTML = '';
+        // Cart Logic
+        let cart = [];
+        let total = 0;
+        function addToCart(name, price) {
+            cart.push({name, price});
+            total += price;
+            document.getElementById('cart-count').innerText = cart.length;
+            alert(name + " added to your cart!");
+        }
+
+        function openCart() {
+            document.getElementById('cartModal').style.display = 'flex';
+            const list = document.getElementById('cartItems');
+            list.innerHTML = '';
             cart.forEach(item => {
-                cartList.innerHTML += `<div class="cart-item"><span>${item.name}</span> <span>₹${item.price}</span></div>`;
+                list.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee; font-size:12px;"><span>${item.name}</span> <span style="font-weight:bold;">₹${item.price}</span></div>`;
             });
             document.getElementById('cartTotalDisplay').innerText = `Total: ₹${total}`;
         }
-
-        // 2. Real Checkout via WhatsApp
-        function checkoutWhatsApp() {
-            if (cart.length === 0) {
-                alert("Your cart is empty!");
-                return;
-            }
-
-            let myWhatsAppNumber = "919744778211"; // Your actual number
-            let message = "Hello Rahi Nur! I want to place an order:%0A%0A";
-            
-            cart.forEach((item, index) => {
-                message += `${index + 1}. ${item.name} - ₹${item.price}%0A`;
-            });
-            
-            message += `%0A*Total Amount: ₹${total}*%0A%0APlease confirm my order.`;
-
-            // Open WhatsApp with the pre-filled order
-            window.open(`https://wa.me/${myWhatsAppNumber}?text=${message}`, '_blank');
-        }
-
-        // 3. Modal Controls
-        function openCart() { document.getElementById('cartModal').style.display = 'flex'; }
         function closeCart() { document.getElementById('cartModal').style.display = 'none'; }
-        
-        function openAdmin() { document.getElementById('adminModal').style.display = 'flex'; }
-        function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
-        
-        function fakeLogin() {
-            alert("To access a real secure Admin Panel, you need to migrate from GitHub Pages to a platform like Shopify or WordPress/WooCommerce.");
-            closeAdmin();
+
+        function checkoutWhatsApp() {
+            if(cart.length === 0) return alert("Cart is empty!");
+            let msg = "Hello Rahi Nur! I want to order:%0A";
+            cart.forEach((item, i) => msg += `${i+1}. ${item.name} - ₹${item.price}%0A`);
+            msg += `%0A*Total: ₹${total}*%0A%0APlease confirm my order.`;
+            window.open(`https://wa.me/919744778211?text=${msg}`, '_blank');
         }
+
+        // Admin Logic
+        function openAdminLogin() { document.getElementById('adminLoginModal').style.display = 'flex'; }
+        function closeAdminLogin() { document.getElementById('adminLoginModal').style.display = 'none'; }
+        
+        function verifyAdmin() {
+            if(document.getElementById('adminPass').value === 'admin123') {
+                closeAdminLogin();
+                document.getElementById('storefront').style.display = 'none';
+                document.getElementById('admin-dashboard').style.display = 'block';
+                loadAdminList();
+            } else {
+                alert("Incorrect Password!");
+            }
+        }
+        function logoutAdmin() {
+            document.getElementById('admin-dashboard').style.display = 'none';
+            document.getElementById('storefront').style.display = 'block';
+            loadProducts();
+        }
+
+        function addProduct() {
+            let name = document.getElementById('p-name').value;
+            let price = document.getElementById('p-price').value;
+            let img = document.getElementById('p-image').value || "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400";
+            if(!name || !price) return alert("Name and Price required!");
+            
+            productsDB.unshift({id: Date.now(), name, price: parseInt(price), img});
+            localStorage.setItem('rn_shop', JSON.stringify(productsDB));
+            document.getElementById('p-name').value = ''; document.getElementById('p-price').value = ''; document.getElementById('p-image').value = '';
+            loadAdminList();
+        }
+
+        function loadAdminList() {
+            const list = document.getElementById('admin-list');
+            list.innerHTML = '';
+            productsDB.forEach((p, i) => {
+                list.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; border-bottom:1px solid #eee;">
+                        <div><strong>${p.name}</strong> <br> <span style="color:#d4af37;">₹${p.price}</span></div>
+                        <button onclick="delProd(${i})" style="background:#ff3366; color:white; border:none; padding:5px 10px; border-radius:3px;">Delete</button>
+                    </div>
+                `;
+            });
+        }
+        function delProd(i) {
+            productsDB.splice(i, 1);
+            localStorage.setItem('rn_shop', JSON.stringify(productsDB));
+            loadAdminList();
+        }
+
+        // Initialize Store
+        loadProducts();
     </script>
 </body>
 </html>
