@@ -3,336 +3,302 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rahi Nur | Official Fashion Store</title>
-    <!-- Premium Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Premium E-Commerce & Dashboard</title>
     <style>
-        /* ================= 1. GLOBAL & RESET ================= */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background: #ffffff; color: #333; overflow-x: hidden; }
-        a { text-decoration: none; color: inherit; }
-        button { cursor: pointer; font-family: 'Montserrat', sans-serif; }
-        .cursive { font-family: 'Great Vibes', cursive; }
-        .serif { font-family: 'Playfair Display', serif; }
-
-        /* ================= 2. TOP DARK HEADER ================= */
-        .dark-header { background: #0c0808; color: #fff; width: 100%; }
-
-        /* Top Bar */
-        .top-bar { background: #1a0609; display: flex; justify-content: space-between; padding: 8px 5%; font-size: 10px; border-bottom: 1px solid #331218; flex-wrap: wrap; }
-        .top-bar-left span { margin-right: 20px; color: #ddd; }
-        .top-bar i { color: #d4af37; margin-right: 5px; }
-
-        /* Contact Row (Desktop) */
-        .contact-row { display: flex; justify-content: center; gap: 30px; padding: 10px 5%; font-size: 11px; color: #bbb; border-bottom: 1px solid #222; }
-
-        /* Main Header Area */
-        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; flex-wrap: wrap; gap: 20px; }
-        
-        /* Clean, Professional Logo */
-        .logo-area { display: flex; align-items: center; gap: 15px; }
-        .logo-circle { width: 75px; height: 75px; border: 1px solid #d4af37; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 500; background: #0c0808; letter-spacing: -2px; }
-        .logo-circle span:first-child { color: #ff3366; }
-        .logo-circle span:last-child { color: #d4af37; }
-        
-        .logo-text h1 { color: #d4af37; font-size: 28px; letter-spacing: 2px; font-weight: 400; line-height: 1.1; }
-        .logo-text p { font-size: 8px; letter-spacing: 4px; color: #888; margin-top: 4px; }
-
-        /* Search and Icons */
-        .header-right { display: flex; align-items: center; gap: 30px; flex: 1; justify-content: flex-end; }
-        .search-box { position: relative; width: 100%; max-width: 350px; }
-        .search-box input { width: 100%; padding: 10px 20px; border-radius: 20px; border: 1px solid #333; background: transparent; color: #fff; font-size: 11px; outline: none; }
-        .search-box i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #fff; }
-        
-        .header-icons { display: flex; gap: 20px; }
-        .icon-btn { display: flex; flex-direction: column; align-items: center; font-size: 9px; color: #aaa; cursor: pointer; position: relative; text-transform: uppercase; letter-spacing: 1px; }
-        .icon-btn i { font-size: 18px; color: #fff; margin-bottom: 5px; }
-        .cart-badge { position: absolute; top: -5px; right: 5px; background: #ff3366; color: #fff; font-size: 9px; width: 15px; height: 15px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; }
-
-        /* Navigation */
-        nav { background: #4a0d17; display: flex; padding-left: 5%; border-top: 1px solid #5a121e; overflow-x: auto; white-space: nowrap; }
-        nav a { padding: 15px 25px; font-size: 11px; font-weight: 700; text-transform: uppercase; color: #fff; letter-spacing: 1px; display: inline-block; }
-        nav a.active { background: #d4af37; color: #000; }
-        nav a:hover:not(.active) { background: #3c0912; }
-
-        /* ================= 3. HERO SECTION ================= */
-        .hero { height: 500px; background: linear-gradient(to right, rgba(20,5,5,0.9) 20%, rgba(20,5,5,0.4) 100%), url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=2000') center 20%/cover; display: flex; align-items: center; padding: 0 10%; color: white; position: relative; }
-        .hero-content { max-width: 500px; position: relative; z-index: 2; }
-        .hero-content h3 { color: #d4af37; font-size: 40px; margin-bottom: 5px; font-weight: 400; }
-        .hero-content h2 { font-size: 48px; line-height: 1.1; letter-spacing: 2px; margin-bottom: 20px; font-weight: 600; text-transform: uppercase; }
-        .hero-content p { font-size: 11px; letter-spacing: 3px; font-weight: 600; margin-bottom: 30px; color: #eee; }
-        .btn-gold { background: #d4af37; color: #000; padding: 12px 35px; border: none; font-weight: 700; font-size: 12px; border-radius: 3px; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* ================= 4. CATEGORIES ================= */
-        .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 40px 5%; background: #fff; }
-        .cat-box { border-radius: 8px; padding: 25px 20px; display: flex; flex-direction: column; justify-content: center; position: relative; height: 180px; overflow: hidden; }
-        .cat-box h4 { font-size: 18px; font-weight: 700; margin-bottom: 5px; color: #333; line-height: 1.2; width: 60%; z-index: 2; }
-        .cat-box p { font-size: 10px; color: #555; margin-bottom: 15px; width: 60%; z-index: 2; }
-        .cat-box .btn-dark { background: #111; color: #fff; padding: 8px 15px; font-size: 9px; font-weight: 700; border: none; width: fit-content; border-radius: 3px; z-index: 2; }
-        .cat-box img { position: absolute; right: -20px; bottom: 0; height: 110%; object-fit: contain; z-index: 1; }
-        
-        .cat-1 { background: #f6e9e9; }
-        .cat-2 { background: #fcf0f0; }
-        .cat-3 { background: #1a2f26; color: #fff; }
-        .cat-3 h4, .cat-3 p { color: #fff; }
-        .cat-4 { background: #f7efd8; }
-
-        /* ================= 5. FEATURES BAR ================= */
-        .features-bar { display: flex; justify-content: space-between; padding: 25px 5%; background: #fdfdfc; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; margin-bottom: 40px; flex-wrap: wrap; gap: 15px; }
-        .feat-item { display: flex; align-items: center; gap: 15px; flex: 1; min-width: 150px; }
-        .feat-item i { font-size: 32px; color: #d4af37; }
-        .feat-item h5 { font-size: 11px; font-weight: 700; margin-bottom: 2px; color: #111; }
-        .feat-item p { font-size: 10px; color: #888; }
-
-        /* ================= 6. FEATURED PRODUCTS ================= */
-        .section-header { text-align: center; padding: 0 5% 30px; position: relative; }
-        .section-header h2 { font-size: 26px; color: #7a1c2d; font-weight: 700; letter-spacing: 1px; display: inline-block; }
-        .view-all { position: absolute; right: 5%; top: 5px; font-size: 11px; color: #ff3366; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-        
-        .products-container { display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px; padding: 0 5% 60px; }
-        .prod-card { background: #fff; text-align: center; border-radius: 8px; position: relative; padding-bottom: 15px; border: 1px solid #f0f0f0; }
-        .prod-card img { width: 100%; height: 220px; object-fit: cover; border-top-left-radius: 8px; border-top-right-radius: 8px; }
-        
-        .badge-new { position: absolute; top: 10px; left: 10px; background: #ff3366; color: white; padding: 3px 8px; font-size: 9px; font-weight: 700; border-radius: 12px; }
-        .wishlist-circle { position: absolute; top: 10px; right: 10px; background: #fff; width: 25px; height: 25px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #aaa; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 12px; cursor: pointer; }
-        
-        .prod-title { font-size: 10px; font-weight: 600; color: #444; margin: 12px 10px 5px; line-height: 1.3; }
-        .prod-price { font-size: 14px; font-weight: 700; color: #ff3366; margin-bottom: 10px; }
-        .add-to-cart-btn { background: #fff; border: 1px solid #d4af37; color: #111; padding: 6px 12px; font-size: 9px; border-radius: 20px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .add-to-cart-btn:hover { background: #d4af37; color: #fff; }
-
-        /* ================= 7. BOTTOM PROMO ================= */
-        .bottom-promo { background: #1a0609; color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #331218; flex-wrap: wrap; gap: 20px; }
-        .promo-code { display: flex; align-items: center; gap: 15px; font-size: 11px; font-weight: 600; }
-        .promo-code i { color: #d4af37; font-size: 24px; }
-        .promo-code span { color: #d4af37; }
-        .promo-box { border: 1px solid #d4af37; padding: 6px 15px; border-radius: 3px; margin-left: 10px; }
-        
-        .whatsapp-large { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-        .whatsapp-large i { color: #25D366; font-size: 24px; }
-        .whatsapp-large span { font-size: 10px; display: block; font-weight: 400; }
-
-        /* ================= MOBILE RESPONSIVE (MATCHING IMAGE 3) ================= */
-        @media (max-width: 768px) {
-            .contact-row { display: none; } /* Hidden on mobile to save space like original */
-            header { flex-direction: column; align-items: center; text-align: center; }
-            .header-right { width: 100%; justify-content: center; margin-top: 15px; }
-            .search-box { display: none; } /* Simplified for mobile top bar */
-            
-            .hero { padding: 0 5%; text-align: center; height: 400px; }
-            .hero::before { background: linear-gradient(to bottom, rgba(26,6,9,0.8) 0%, rgba(26,6,9,0.6) 100%); }
-            .hero-content { margin: 0 auto; }
-            .hero-content h2 { font-size: 32px; }
-            
-            .categories-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .cat-box { height: 140px; padding: 15px; }
-            .cat-box h4 { font-size: 14px; }
-            .cat-box img { right: -10px; height: 100%; }
-            
-            .products-container { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-            .prod-card img { height: 150px; }
-            .view-all { position: relative; display: block; right: auto; margin-top: 10px; }
-            
-            .bottom-promo { justify-content: center; text-align: center; flex-direction: column; }
-            .promo-code { flex-direction: column; }
-            .promo-box { margin-left: 0; margin-top: 10px; }
+        /* CSS Variables for Premium Theme */
+        :root {
+            --bg-color: #f4f6f8;
+            --text-color: #2c3e50;
+            --primary-color: #111827;
+            --accent-color: #f59e0b; /* Gold/Amber for premium brand feel */
+            --card-bg: #ffffff;
+            --border-radius: 12px;
         }
 
-        @media (max-width: 480px) {
-            .products-container { grid-template-columns: repeat(2, 1fr); }
-            .hero h2 { font-size: 28px; }
-            .hero h3 { font-size: 28px; }
+        /* Auto Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0f172a;
+                --text-color: #f8fafc;
+                --primary-color: #000000;
+                --card-bg: #1e293b;
+            }
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* 1. High-Quality Brand Header */
+        header {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .brand-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border: 2px solid var(--accent-color);
+            padding: 8px 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* 2. Real-Time Admin Dashboard Section */
+        .dashboard-header {
+            padding: 2rem 5% 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .dashboard {
+            padding: 1.5rem 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--accent-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .stat-card h3 { 
+            margin: 0; 
+            font-size: 1rem; 
+            color: #64748b; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-card .value { 
+            font-size: 2.5rem; 
+            font-weight: 800; 
+            margin-top: 10px; 
+            color: var(--text-color);
+        }
+
+        .live-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #10b981;
+            border-radius: 50%;
+            margin-left: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* 3. E-Commerce Products Section */
+        .products-header {
+            padding: 2rem 5% 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .products {
+            padding: 1.5rem 5% 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background-color: #cbd5e1;
+        }
+
+        .product-info { 
+            padding: 1.5rem; 
+        }
+
+        .product-title { 
+            font-size: 1.3rem; 
+            margin: 0 0 0.5rem 0; 
+        }
+
+        .product-price { 
+            color: var(--accent-color); 
+            font-weight: 800; 
+            font-size: 1.5rem; 
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            text-align: center;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover { 
+            background-color: var(--accent-color); 
+            color: #000000;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 1rem; }
+            nav a { margin: 0 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- DARK TOP SECTION -->
-    <div class="dark-header">
-        
-        <div class="top-bar">
-            <div class="top-bar-left">
-                <span><i class="fas fa-truck"></i> FREE SHIPPING on order above ₹999</span>
-                <span><i class="fas fa-box"></i> COD Available</span>
-                <span><i class="fas fa-undo"></i> 7 Days Easy Returns</span>
-            </div>
-            <div>Download Our App &nbsp; <i class="fab fa-apple"></i> &nbsp; <i class="fab fa-android"></i></div>
-        </div>
-
-        <div class="contact-row">
-            <span><i class="fas fa-phone-alt"></i> 9744778211</span>
-            <span><i class="fas fa-envelope"></i> mrahi4412@gmail.com</span>
-            <span><i class="fas fa-map-marker-alt"></i> Luahagachhi, Madhya Talbari, Goalpokhar-I, West Bengal - 733210</span>
-        </div>
-
-        <header>
-            <div class="logo-area">
-                <div class="logo-circle">
-                    <span>R</span><span>N</span>
-                </div>
-                <div class="logo-text">
-                    <h1 class="serif">RAHI NUR</h1>
-                    <p>— OFFICIAL FASHION STORE —</p>
-                </div>
-            </div>
-
-            <div class="header-right">
-                <div class="search-box">
-                    <input type="text" placeholder="Search for products...">
-                    <i class="fas fa-search"></i>
-                </div>
-                <div class="header-icons">
-                    <div class="icon-btn"><i class="far fa-heart"></i>Wishlist</div>
-                    <div class="icon-btn">
-                        <div class="cart-badge">0</div>
-                        <i class="fas fa-shopping-cart"></i>Cart
-                    </div>
-                    <div class="icon-btn"><i class="far fa-user"></i>Login / Register</div>
-                </div>
-            </div>
-        </header>
-
+    <!-- Header & Brand Logo -->
+    <header>
+        <div class="brand-logo">LuxeBrand</div>
         <nav>
-            <a href="#" class="active">HOME</a>
-            <a href="#">LADIES FASHION <i class="fas fa-angle-down"></i></a>
-            <a href="#">KIDS FASHION <i class="fas fa-angle-down"></i></a>
-            <a href="#">JEWELRY <i class="fas fa-angle-down"></i></a>
-            <a href="#">NEW ARRIVALS</a>
-            <a href="#">BEST SELLERS</a>
-            <a href="#">OFFERS</a>
+            <a href="#">Store</a>
+            <a href="#">Categories</a>
+            <a href="#">Cloud Sync</a>
+            <a href="#">Cart (3)</a>
         </nav>
+    </header>
 
-        <div class="hero">
-            <div class="hero-content">
-                <h3 class="cursive">Shine with Elegance</h3>
-                <h2 class="serif">FASHION & JEWELRY<br>FOR EVERY YOU</h2>
-                <p>PREMIUM QUALITY • TRENDY DESIGNS • BEST PRICES</p>
-                <button class="btn-gold">SHOP NOW</button>
+    <!-- Real-Time Dashboard -->
+    <div class="dashboard-header">Live Sales Dashboard <span class="live-indicator"></span></div>
+    <section class="dashboard">
+        <div class="stat-card">
+            <h3>Active Customers on Site</h3>
+            <div class="value" id="active-users">245</div>
+        </div>
+        <div class="stat-card">
+            <h3>Orders Today</h3>
+            <div class="value" id="today-orders">89</div>
+        </div>
+        <div class="stat-card">
+            <h3>Total Revenue (Live)</h3>
+            <div class="value" id="live-revenue">₹1,24,500</div>
+        </div>
+    </section>
+
+    <!-- E-Commerce Storefront -->
+    <div class="products-header">Premium Collection</div>
+    <section class="products">
+        
+        <!-- Product 1 -->
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Smart Watch" class="product-img">
+            <div class="product-info">
+                <h3 class="product-title">Luxury Smartwatch Series X</h3>
+                <div class="product-price">₹12,999</div>
+                <button class="btn" onclick="addOrder(12999)">Add to Cart</button>
             </div>
         </div>
 
-    </div>
-
-    <!-- CATEGORIES -->
-    <div class="categories-grid">
-        <div class="cat-box cat-1">
-            <h4 class="serif">LADIES<br>FASHION</h4>
-            <p>Stylish • Elegant • You</p>
-            <button class="btn-dark">SHOP NOW</button>
-            <img src="https://images.unsplash.com/photo-1583391733958-d6510165213d?q=80&w=300" alt="Ladies">
-        </div>
-        <div class="cat-box cat-2">
-            <h4 class="serif">KIDS<br>FASHION</h4>
-            <p>Trendy & Comfortable</p>
-            <button class="btn-dark">SHOP NOW</button>
-            <img src="https://images.unsplash.com/photo-1621447504864-d86b7294fb8e?q=80&w=300" alt="Kids">
-        </div>
-        <div class="cat-box cat-3">
-            <h4 class="serif">JEWELRY<br>COLLECTION</h4>
-            <p>Shine Every Moment</p>
-            <button class="btn-dark" style="border: 1px solid #fff;">SHOP NOW</button>
-            <img src="https://images.unsplash.com/photo-1599643478524-fb66f7ca066b?q=80&w=300" alt="Jewelry">
-        </div>
-        <div class="cat-box cat-4">
-            <h4 class="serif">NEW<br>ARRIVALS</h4>
-            <p>Check Out Now</p>
-            <button class="btn-dark">SHOP NOW</button>
-            <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?q=80&w=300" alt="New">
-        </div>
-    </div>
-
-    <!-- FEATURES -->
-    <div class="features-bar">
-        <div class="feat-item"><i class="fas fa-truck-fast"></i><div><h5>FREE SHIPPING</h5><p>On order above ₹999</p></div></div>
-        <div class="feat-item"><i class="fas fa-shield-alt"></i><div><h5>SECURE PAYMENT</h5><p>100% Safe & Secure</p></div></div>
-        <div class="feat-item"><i class="fas fa-box-open"></i><div><h5>EASY RETURNS</h5><p>7 Days Return Policy</p></div></div>
-        <div class="feat-item"><i class="fas fa-hand-holding-usd"></i><div><h5>COD AVAILABLE</h5><p>Pay on Delivery</p></div></div>
-        <div class="feat-item"><i class="fas fa-headset"></i><div><h5>24/7 SUPPORT</h5><p>We are Always Here</p></div></div>
-    </div>
-
-    <!-- PRODUCTS -->
-    <div class="section-header">
-        <h2 class="serif">FEATURED PRODUCTS</h2>
-        <div class="view-all">VIEW ALL</div>
-    </div>
-
-    <div class="products-container">
-        <!-- 1 -->
-        <div class="prod-card">
-            <div class="badge-new">NEW</div>
-            <div class="wishlist-circle"><i class="far fa-heart"></i></div>
-            <img src="https://images.unsplash.com/photo-1583391733958-d6510165213d?q=80&w=300" alt="Kurti">
-            <h4 class="prod-title">Premium Cotton Kurti</h4>
-            <p class="prod-price">₹799</p>
-            <button class="add-to-cart-btn">ADD TO CART</button>
-        </div>
-        <!-- 2 -->
-        <div class="prod-card">
-            <div class="badge-new">NEW</div>
-            <div class="wishlist-circle"><i class="far fa-heart"></i></div>
-            <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?q=80&w=300" alt="Suit">
-            <h4 class="prod-title">Designer Anarkali Suit</h4>
-            <p class="prod-price">₹1,599</p>
-            <button class="add-to-cart-btn">ADD TO CART</button>
-        </div>
-        <!-- 3 -->
-        <div class="prod-card">
-            <div class="badge-new">NEW</div>
-            <div class="wishlist-circle"><i class="far fa-heart"></i></div>
-            <img src="https://images.unsplash.com/photo-1610030469649-6f9175d71c8c?q=80&w=300" alt="Saree">
-            <h4 class="prod-title">Printed Saree</h4>
-            <p class="prod-price">₹999</p>
-            <button class="add-to-cart-btn">ADD TO CART</button>
-        </div>
-        <!-- 4 -->
-        <div class="prod-card">
-            <div class="badge-new">NEW</div>
-            <div class="wishlist-circle"><i class="far fa-heart"></i></div>
-            <img src="https://images.unsplash.com/photo-1599643478524-fb66f7ca066b?q=80&w=300" alt="Necklace">
-            <h4 class="prod-title">Gold Plated Necklace Set</h4>
-            <p class="prod-price">₹1,299</p>
-            <button class="add-to-cart-btn">ADD TO CART</button>
-        </div>
-        <!-- 5 -->
-        <div class="prod-card">
-            <div class="badge-new">NEW</div>
-            <div class="wishlist-circle"><i class="far fa-heart"></i></div>
-            <img src="https://images.unsplash.com/photo-1621447504864-d86b7294fb8e?q=80&w=300" alt="Kids Dress">
-            <h4 class="prod-title">Kids Party Dress</h4>
-            <p class="prod-price">₹699</p>
-            <button class="add-to-cart-btn">ADD TO CART</button>
-        </div>
-        <!-- 6 -->
-        <div class="prod-card">
-            <div class="badge-new">NEW</div>
-            <div class="wishlist-circle"><i class="far fa-heart"></i></div>
-            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=300" alt="Earrings">
-            <h4 class="prod-title">Oxidized Jhumka Earrings</h4>
-            <p class="prod-price">₹399</p>
-            <button class="add-to-cart-btn">ADD TO CART</button>
-        </div>
-    </div>
-
-    <!-- BOTTOM PROMO -->
-    <div class="bottom-promo">
-        <div class="promo-code">
-            <i class="fas fa-tags"></i>
-            <div>
-                <span>EXTRA 10% OFF</span><br>
-                <span>ON PREPAID ORDERS</span>
+        <!-- Product 2 -->
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Headphones" class="product-img">
+            <div class="product-info">
+                <h3 class="product-title">Noise Cancelling Headphones</h3>
+                <div class="product-price">₹8,499</div>
+                <button class="btn" onclick="addOrder(8499)">Add to Cart</button>
             </div>
-            <div class="promo-box">USE CODE: RAHINUR10</div>
         </div>
-        <div class="whatsapp-large">
-            <div>
-                <span>WHATSAPP US</span>
-                9744778211
-            </div>
-            <i class="fab fa-whatsapp"></i>
-        </div>
-    </div>
 
+        <!-- Product 3 -->
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Camera" class="product-img">
+            <div class="product-info">
+                <h3 class="product-title">Vintage DSLR Camera</h3>
+                <div class="product-price">₹45,000</div>
+                <button class="btn" onclick="addOrder(45000)">Add to Cart</button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- JavaScript for Real-Time Dashboard Simulation -->
+    <script>
+        // Real-time Active Users Simulation
+        setInterval(() => {
+            const usersElement = document.getElementById('active-users');
+            let currentUsers = parseInt(usersElement.innerText);
+            // Randomly increase or decrease users by a small amount
+            let change = Math.floor(Math.random() * 11) - 5; 
+            let newUsers = currentUsers + change;
+            usersElement.innerText = newUsers > 50 ? newUsers : 50; // Keep minimum 50
+        }, 3500);
+
+        // Function to simulate a new order being placed
+        let totalRevenue = 124500;
+        let totalOrders = 89;
+
+        function addOrder(price) {
+            totalOrders++;
+            totalRevenue += price;
+            
+            // Update UI with animation effect
+            document.getElementById('today-orders').innerText = totalOrders;
+            document.getElementById('live-revenue').innerText = '₹' + totalRevenue.toLocaleString('en-IN');
+            
+            alert("Item added to cart! Dashboard updated in real-time.");
+        }
+    </script>
 </body>
 </html>
