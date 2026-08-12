@@ -1,495 +1,858 @@
-const defaultProducts = [
-
-{
-id: 1,
-name: "Royal Anarkali Suit",
-cat: "Ladies",
-price: 1599,
-tag: "Bestseller",
-icon: "✦"
-},
-
-{
-id: 2,
-name: "Premium Cotton Kurti",
-cat: "Ladies",
-price: 799,
-tag: "New",
-icon: "RN"
-},
-
-{
-id: 3,
-name: "Designer Party Gown",
-cat: "Ladies",
-price: 2199,
-tag: "Premium",
-icon: "✧"
-},
-
-{
-id: 4,
-name: "Elegant Gold Jewelry Set",
-cat: "Jewelry",
-price: 1299,
-tag: "Trending",
-icon: "◆"
-},
+/* =========================================================
+   RAHI NUR OFFICIAL FASHION STORE
+   STORE FUNCTIONALITY
+   ========================================================= */
 
-{
-id: 5,
-name: "Girls Party Dress",
-cat: "Kids",
-price: 699,
-tag: "New",
-icon: "♡"
-},
+document.addEventListener("DOMContentLoaded", () => {
 
-{
-id: 6,
-name: "Kids Ethnic Set",
-cat: "Kids",
-price: 899,
-tag: "Bestseller",
-icon: "RN"
-},
+  /* =======================================================
+     CART
+     ======================================================= */
 
-{
-id: 7,
-name: "Kids Cotton Frock",
-cat: "Kids",
-price: 499,
-tag: "Value",
-icon: "♡"
-},
+  let cart = JSON.parse(localStorage.getItem("rahiNurCart")) || [];
 
-{
-id: 8,
-name: "Classic Jewelry Set",
-cat: "Jewelry",
-price: 999,
-tag: "Elegant",
-icon: "◆"
-}
+  const saveCart = () => {
+    localStorage.setItem("rahiNurCart", JSON.stringify(cart));
+    updateCartCount();
+    renderCart();
+  };
 
-];
+  const updateCartCount = () => {
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
 
+    document.querySelectorAll(".cart-count").forEach(el => {
+      el.textContent = count;
+    });
 
-const DB = {
+    document.querySelectorAll("[data-cart-count]").forEach(el => {
+      el.textContent = count;
+    });
+  };
 
-get(key, fallback) {
 
-try {
+  /* =======================================================
+     ADD TO CART
+     ======================================================= */
 
-return JSON.parse(
-localStorage.getItem(key)
-) ?? fallback;
+  document.addEventListener("click", event => {
 
-}
+    const button = event.target.closest(
+      ".add, .add-to-cart, [data-add-cart]"
+    );
 
-catch {
+    if (!button) return;
 
-return fallback;
+    const card = button.closest(
+      ".product-card, [data-product]"
+    );
 
-}
+    if (!card) return;
 
-},
+    const name =
+      card.dataset.name ||
+      card.querySelector("h3")?.textContent?.trim() ||
+      "Fashion Product";
 
-set(key, value) {
+    const priceText =
+      card.dataset.price ||
+      card.querySelector(".price")?.textContent ||
+      "0";
 
-localStorage.setItem(
-key,
-JSON.stringify(value)
-);
+    const price =
+      parseFloat(
+        String(priceText).replace(/[^\d.]/g, "")
+      ) || 0;
 
-}
+    const image =
+      card.dataset.image ||
+      card.querySelector("img")?.src ||
+      "";
 
-};
+    const existing = cart.find(
+      item => item.name === name
+    );
 
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({
+        id: Date.now(),
+        name,
+        price,
+        image,
+        quantity: 1
+      });
+    }
 
-const Store = {
+    saveCart();
 
-cat: "All",
+    showMessage(
+      `${name} added to cart`
+    );
 
-products: DB.get(
-"rn_products",
-defaultProducts
-),
+    openCart();
 
-cart: DB.get(
-"rn_cart",
-[]
-),
+  });
 
 
-money(number) {
+  /* =======================================================
+     CART DRAWER
+     ======================================================= */
 
-return "₹" +
-Number(number)
-.toLocaleString("en-IN");
+  const cartDrawer =
+    document.querySelector(".cart-drawer");
 
-},
+  const overlay =
+    document.querySelector(".overlay");
 
+  const openCart = () => {
 
-render() {
+    if (cartDrawer) {
+      cartDrawer.classList.add("open");
+    }
 
-const search =
-document.querySelector("#search");
+    if (overlay) {
+      overlay.classList.add("show");
+    }
 
-const query =
-(search?.value || "")
-.toLowerCase();
+    document.body.style.overflow = "hidden";
 
+    renderCart();
+  };
 
-const list =
-this.products.filter(product =>
+  window.openCart = openCart;
 
-(
-this.cat === "All" ||
-product.cat === this.cat
-)
 
-&&
-product.name
-.toLowerCase()
-.includes(query)
+  const closeCart = () => {
 
-);
+    if (cartDrawer) {
+      cartDrawer.classList.remove("open");
+    }
 
+    if (overlay) {
+      overlay.classList.remove("show");
+    }
 
-document.querySelector("#products")
-.innerHTML = list.map(product => `
+    document.body.style.overflow = "";
+  };
 
-<article class="product">
+  window.closeCart = closeCart;
 
-<div class="pimg">
 
-<span>
-${product.icon}
-</span>
+  document.addEventListener("click", event => {
 
-<i>
-${product.tag}
-</i>
+    if (
+      event.target.closest(
+        ".cart, [data-cart], #cartButton, .cart-button"
+      )
+    ) {
+      openCart();
+    }
 
-</div>
+    if (
+      event.target.closest(
+        ".cart-close, [data-close-cart], #closeCart"
+      )
+    ) {
+      closeCart();
+    }
 
+  });
 
-<div class="pbody">
 
-<small>
-${product.cat}
-</small>
+  if (overlay) {
+    overlay.addEventListener("click", closeCart);
+  }
 
-<h3>
-${product.name}
-</h3>
 
-<div class="price">
-${this.money(product.price)}
-</div>
+  /* =======================================================
+     RENDER CART
+     ======================================================= */
+
+  const renderCart = () => {
+
+    const container =
+      document.querySelector(
+        ".cart-items"
+      );
+
+    if (!container) return;
+
+    if (cart.length === 0) {
+
+      container.innerHTML = `
+        <div style="
+          text-align:center;
+          padding:60px 20px;
+          color:#c8bda8;
+        ">
+          <div style="font-size:45px;margin-bottom:15px;">
+            🛍️
+          </div>
+
+          <h3 style="
+            color:#f8f0df;
+            margin-bottom:10px;
+          ">
+            Your cart is empty
+          </h3>
+
+          <p>
+            Add something beautiful to your cart.
+          </p>
+        </div>
+      `;
+
+      updateTotal();
+
+      return;
+    }
+
+
+    container.innerHTML = cart.map(item => {
+
+      const subtotal =
+        item.price * item.quantity;
+
+      return `
+        <div
+          class="cart-item"
+          data-id="${item.id}"
+          style="
+            display:flex;
+            gap:14px;
+            padding:15px 0;
+            border-bottom:1px solid rgba(218,175,53,.25);
+          "
+        >
+
+          <img
+            src="${item.image}"
+            alt="${escapeHTML(item.name)}"
+            style="
+              width:75px;
+              height:90px;
+              object-fit:cover;
+              border-radius:2px;
+            "
+          >
+
+          <div style="flex:1;">
 
-<button
-class="add"
-onclick="Store.add(${product.id})"
->
-Add to Cart
-</button>
+            <h4 style="
+              color:#fff;
+              margin-bottom:7px;
+              font-family:Georgia,serif;
+              font-weight:normal;
+            ">
+              ${escapeHTML(item.name)}
+            </h4>
+
+            <div style="
+              color:#d9ae32;
+              margin-bottom:10px;
+            ">
+              ₹${item.price.toLocaleString("en-IN")}
+            </div>
 
-</div>
+            <div style="
+              display:flex;
+              align-items:center;
+              gap:10px;
+            ">
 
-</article>
+              <button
+                class="quantity-minus"
+                data-id="${item.id}"
+                style="
+                  width:28px;
+                  height:28px;
+                  background:transparent;
+                  color:#d9ae32;
+                  border:1px solid #d9ae32;
+                  cursor:pointer;
+                "
+              >−</button>
 
-`).join("");
+              <span style="color:#fff;">
+                ${item.quantity}
+              </span>
 
-},
+              <button
+                class="quantity-plus"
+                data-id="${item.id}"
+                style="
+                  width:28px;
+                  height:28px;
+                  background:transparent;
+                  color:#d9ae32;
+                  border:1px solid #d9ae32;
+                  cursor:pointer;
+                "
+              >+</button>
 
+              <button
+                class="remove-item"
+                data-id="${item.id}"
+                style="
+                  margin-left:auto;
+                  background:transparent;
+                  color:#e55;
+                  border:0;
+                  cursor:pointer;
+                "
+              >
+                Remove
+              </button>
 
-add(id) {
+            </div>
 
-this.cart.push(id);
+          </div>
 
-DB.set(
-"rn_cart",
-this.cart
-);
+        </div>
+      `;
 
-this.update();
+    }).join("");
 
-this.openCart();
+    updateTotal();
 
-},
+  };
 
 
-update() {
+  /* =======================================================
+     CART QUANTITY
+     ======================================================= */
 
-document.querySelector("#cartCount")
-.textContent =
-this.cart.length;
+  document.addEventListener("click", event => {
 
-},
+    const plus =
+      event.target.closest(".quantity-plus");
 
+    const minus =
+      event.target.closest(".quantity-minus");
 
-openCart() {
+    const remove =
+      event.target.closest(".remove-item");
 
-this.drawCart();
 
-document
-.querySelector("#cartModal")
-.classList
-.remove("hide");
+    if (plus) {
 
-},
+      const id =
+        Number(plus.dataset.id);
 
+      const item =
+        cart.find(item => item.id === id);
 
-closeCart() {
+      if (item) {
+        item.quantity++;
+        saveCart();
+      }
 
-document
-.querySelector("#cartModal")
-.classList
-.add("hide");
+    }
 
-},
 
+    if (minus) {
 
-drawCart() {
+      const id =
+        Number(minus.dataset.id);
 
-let total = 0;
+      const item =
+        cart.find(item => item.id === id);
 
-const box =
-document.querySelector("#cartItems");
+      if (!item) return;
 
+      item.quantity--;
 
-if (!this.cart.length) {
+      if (item.quantity <= 0) {
+        cart =
+          cart.filter(item => item.id !== id);
+      }
 
-box.innerHTML =
-"<p>Your cart is empty.</p>";
+      saveCart();
 
-document.querySelector("#cartTotal")
-.textContent = "₹0";
+    }
 
-return;
 
-}
+    if (remove) {
 
+      const id =
+        Number(remove.dataset.id);
 
-box.innerHTML =
-this.cart.map((id, index) => {
+      cart =
+        cart.filter(item => item.id !== id);
 
-const product =
-this.products.find(
-item => item.id === id
-);
+      saveCart();
 
-total += product.price;
+      showMessage("Product removed");
 
+    }
 
-return `
+  });
 
-<div class="cartrow">
 
-<span>
-${product.name}
-</span>
+  /* =======================================================
+     TOTAL
+     ======================================================= */
 
-<b>
+  const updateTotal = () => {
 
-${this.money(product.price)}
+    const total =
+      cart.reduce(
+        (sum, item) =>
+          sum + item.price * item.quantity,
+        0
+      );
 
-<button
-onclick="Store.remove(${index})"
->
-×
-</button>
+    document.querySelectorAll(
+      ".cart-total strong, [data-cart-total]"
+    ).forEach(el => {
 
-</b>
+      el.textContent =
+        `₹${total.toLocaleString("en-IN")}`;
 
-</div>
+    });
 
-`;
+  };
 
-}).join("");
 
+  /* =======================================================
+     SEARCH
+     ======================================================= */
 
-document.querySelector("#cartTotal")
-.textContent =
-this.money(total);
+  const searchInputs =
+    document.querySelectorAll(
+      ".search-box input, #searchInput, [data-search]"
+    );
 
-},
+  searchInputs.forEach(input => {
 
+    input.addEventListener("input", () => {
 
-remove(index) {
+      const search =
+        input.value.toLowerCase().trim();
 
-this.cart.splice(
-index,
-1
-);
+      const products =
+        document.querySelectorAll(
+          ".product-card"
+        );
 
-DB.set(
-"rn_cart",
-this.cart
-);
+      products.forEach(product => {
 
-this.update();
+        const text =
+          product.textContent.toLowerCase();
 
-this.drawCart();
+        product.style.display =
+          !search || text.includes(search)
+            ? ""
+            : "none";
 
-},
+      });
 
+    });
 
-checkout() {
+    input.addEventListener("keydown", event => {
 
-if (!this.cart.length) {
+      if (event.key === "Enter") {
 
-alert("Your cart is empty.");
+        event.preventDefault();
 
-return;
+        const search =
+          input.value.trim();
 
-}
+        if (search) {
 
-location.href =
-"checkout.html";
+          document.querySelector(
+            ".product-grid"
+          )?.scrollIntoView({
+            behavior: "smooth"
+          });
 
-}
+        }
 
-};
+      }
 
+    });
 
-document
-.querySelectorAll(".filters button")
-.forEach(button => {
+  });
 
-button.onclick = () => {
 
-document
-.querySelectorAll(".filters button")
-.forEach(item =>
-item.classList.remove("active")
-);
+  /* =======================================================
+     CATEGORY FILTER
+     ======================================================= */
 
-button.classList.add("active");
+  document.addEventListener("click", event => {
 
-Store.cat =
-button.dataset.cat;
+    const button =
+      event.target.closest(
+        ".filter-buttons button, [data-category]"
+      );
 
-Store.render();
+    if (!button) return;
 
-};
+    const category =
+      (
+        button.dataset.category ||
+        button.textContent
+      )
+      .toLowerCase()
+      .trim();
+
+    document.querySelectorAll(
+      ".filter-buttons button"
+    ).forEach(btn => {
+      btn.classList.remove(
+        "filter-active"
+      );
+    });
+
+    button.classList.add(
+      "filter-active"
+    );
+
+
+    document.querySelectorAll(
+      ".product-card"
+    ).forEach(card => {
+
+      const cardCategory =
+        (
+          card.dataset.category ||
+          card.textContent
+        )
+        .toLowerCase();
+
+      if (
+        category === "all" ||
+        category === "" ||
+        cardCategory.includes(category)
+      ) {
+
+        card.style.display = "";
+
+      } else {
+
+        card.style.display = "none";
+
+      }
+
+    });
+
+  });
+
+
+  /* =======================================================
+     WISHLIST
+     ======================================================= */
+
+  let wishlist =
+    JSON.parse(
+      localStorage.getItem("rahiNurWishlist")
+    ) || [];
+
+
+  document.addEventListener("click", event => {
+
+    const button =
+      event.target.closest(
+        ".wishlist, [data-wishlist], #wishlistButton"
+      );
+
+    if (!button) return;
+
+    const card =
+      button.closest(".product-card");
+
+    if (!card) return;
+
+    const name =
+      card.dataset.name ||
+      card.querySelector("h3")?.textContent?.trim() ||
+      "Product";
+
+    if (wishlist.includes(name)) {
+
+      wishlist =
+        wishlist.filter(
+          item => item !== name
+        );
+
+      button.classList.remove(
+        "wishlist-active"
+      );
+
+      showMessage(
+        "Removed from wishlist"
+      );
+
+    } else {
+
+      wishlist.push(name);
+
+      button.classList.add(
+        "wishlist-active"
+      );
+
+      showMessage(
+        "Added to wishlist ❤️"
+      );
+
+    }
+
+    localStorage.setItem(
+      "rahiNurWishlist",
+      JSON.stringify(wishlist)
+    );
+
+  });
+
+
+  /* =======================================================
+     SHOP NOW
+     ======================================================= */
+
+  document.addEventListener("click", event => {
+
+    const button =
+      event.target.closest(
+        ".gold-button, [data-shop-now]"
+      );
+
+    if (!button) return;
+
+    document.querySelector(
+      ".product-grid"
+    )?.scrollIntoView({
+      behavior: "smooth"
+    });
+
+  });
+
+
+  /* =======================================================
+     LOGIN / REGISTER
+     ======================================================= */
+
+  document.addEventListener("click", event => {
+
+    const button =
+      event.target.closest(
+        ".login, [data-login], #loginButton"
+      );
+
+    if (!button) return;
+
+    showLoginBox();
+
+  });
+
+
+  const showLoginBox = () => {
+
+    if (document.querySelector(
+      ".login-modal"
+    )) return;
+
+    const modal =
+      document.createElement("div");
+
+    modal.className =
+      "login-modal";
+
+    modal.innerHTML = `
+
+      <div class="login-overlay"></div>
+
+      <div style="
+        position:fixed;
+        z-index:2000;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        width:min(420px,90%);
+        background:#180005;
+        border:1px solid #d9ae32;
+        padding:35px;
+        box-shadow:0 20px 60px rgba(0,0,0,.6);
+      ">
+
+        <button
+          class="login-close"
+          style="
+            position:absolute;
+            right:15px;
+            top:12px;
+            background:none;
+            border:0;
+            color:#fff;
+            font-size:25px;
+            cursor:pointer;
+          "
+        >
+          ×
+        </button>
+
+        <div style="
+          text-align:center;
+          margin-bottom:25px;
+        ">
+
+          <div style="
+            color:#d9ae32;
+            font-size:35px;
+          ">
+            ✦
+          </div>
+
+          <h2 style="
+            color:#d9ae32;
+            font-family:Georgia,serif;
+            margin:8px 0;
+          ">
+            RAHI NUR
+          </h2>
+
+          <p style="color:#c8bda8;">
+            Welcome back
+          </p>
+
+        </div>
+
+        <input
+          type="email"
+          placeholder="Email address"
+          style="
+            width:100%;
+            padding:14px;
+            margin-bottom:12px;
+            background:#260008;
+            color:#fff;
+            border:1px solid rgba(218,175,53,.5);
+            outline:none;
+          "
+        >
+
+        <input
+          type="password"
+          placeholder="Password"
+          style="
+            width:100%;
+            padding:14px;
+            margin-bottom:18px;
+            background:#260008;
+            color:#fff;
+            border:1px solid rgba(218,175,53,.5);
+            outline:none;
+          "
+        >
+
+        <button
+          class="gold-button"
+          style="width:100%;"
+        >
+          LOGIN
+        </button>
+
+        <p style="
+          text-align:center;
+          color:#999;
+          font-size:12px;
+          margin-top:18px;
+        ">
+          Account system will be connected in the next step.
+        </p>
+
+      </div>
+
+    `;
+
+    document.body.appendChild(modal);
+
+
+    modal.querySelector(
+      ".login-close"
+    ).addEventListener(
+      "click",
+      () => modal.remove()
+    );
+
+    modal.querySelector(
+      ".login-overlay"
+    ).addEventListener(
+      "click",
+      () => modal.remove()
+    );
+
+  };
+
+
+  /* =======================================================
+     TOAST MESSAGE
+     ======================================================= */
+
+  const showMessage = message => {
+
+    const old =
+      document.querySelector(".store-toast");
+
+    if (old) old.remove();
+
+    const toast =
+      document.createElement("div");
+
+    toast.className =
+      "store-toast";
+
+    toast.textContent =
+      message;
+
+    Object.assign(
+      toast.style,
+      {
+        position: "fixed",
+        bottom: "25px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        background: "#d9ae32",
+        color: "#180005",
+        padding: "13px 22px",
+        borderRadius: "30px",
+        zIndex: "3000",
+        fontWeight: "bold",
+        fontSize: "13px",
+        boxShadow: "0 8px 30px rgba(0,0,0,.4)"
+      }
+    );
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.remove();
+    }, 2500);
+
+  };
+
+
+  /* =======================================================
+     SECURITY / HTML ESCAPE
+     ======================================================= */
+
+  const escapeHTML = value => {
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  };
+
+
+  /* =======================================================
+     INITIALIZE
+     ======================================================= */
+
+  updateCartCount();
+  renderCart();
 
 });
-
-
-const defaultReviews = [
-
-[
-"Ayesha",
-5,
-"Beautiful quality and very elegant designs."
-],
-
-[
-"Sana",
-5,
-"The kids collection is lovely and comfortable."
-],
-
-[
-"Farhana",
-5,
-"Fast response and helpful service."
-]
-
-];
-
-
-function renderReviews() {
-
-const reviews =
-DB.get(
-"rn_reviews",
-defaultReviews
-);
-
-
-document.querySelector("#reviewsList")
-.innerHTML = reviews.map(review => `
-
-<article class="review">
-
-<div class="stars">
-${"★".repeat(review[1])}
-</div>
-
-<p>
-“${review[2]}”
-</p>
-
-<b>
-— ${review[0]}
-</b>
-
-</article>
-
-`).join("");
-
-}
-
-
-document
-.querySelector("#reviewForm")
-?.addEventListener(
-"submit",
-event => {
-
-event.preventDefault();
-
-const form =
-new FormData(event.target);
-
-const reviews =
-DB.get(
-"rn_reviews",
-defaultReviews
-);
-
-
-reviews.push([
-
-form.get("name"),
-
-Number(
-form.get("rating")
-),
-
-form.get("text")
-
-]);
-
-
-DB.set(
-"rn_reviews",
-reviews
-);
-
-event.target.reset();
-
-renderReviews();
-
-alert(
-"Thank you for your review!"
-);
-
-});
-
-
-if (
-document.querySelector("#products")
-) {
-
-Store.render();
-
-Store.update();
-
-renderReviews();
-
-}
