@@ -1,304 +1,497 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium E-Commerce & Dashboard</title>
-    <style>
-        /* CSS Variables for Premium Theme */
-        :root {
-            --bg-color: #f4f6f8;
-            --text-color: #2c3e50;
-            --primary-color: #111827;
-            --accent-color: #f59e0b; /* Gold/Amber for premium brand feel */
-            --card-bg: #ffffff;
-            --border-radius: 12px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        /* Auto Dark Mode Support */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #0f172a;
-                --text-color: #f8fafc;
-                --primary-color: #000000;
-                --card-bg: #1e293b;
-            }
-        }
+  <title>Rahi Nur | Official Fashion Store</title>
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s;
-        }
+  <meta name="description"
+        content="Rahi Nur Official Fashion Store - Ladies Fashion, Kids Fashion and Jewelry.">
 
-        /* 1. High-Quality Brand Header */
-        header {
-            background-color: var(--primary-color);
-            color: #ffffff;
-            padding: 1.2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
+  <meta name="theme-color" content="#160004">
 
-        .brand-logo {
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--accent-color);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            border: 2px solid var(--accent-color);
-            padding: 8px 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            cursor: pointer;
-        }
-
-        nav a {
-            color: #e2e8f0;
-            text-decoration: none;
-            margin-left: 25px;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        nav a:hover {
-            color: var(--accent-color);
-        }
-
-        /* 2. Real-Time Admin Dashboard Section */
-        .dashboard-header {
-            padding: 2rem 5% 0;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .dashboard {
-            padding: 1.5rem 5%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .stat-card {
-            background-color: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--accent-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .stat-card h3 { 
-            margin: 0; 
-            font-size: 1rem; 
-            color: #64748b; 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .stat-card .value { 
-            font-size: 2.5rem; 
-            font-weight: 800; 
-            margin-top: 10px; 
-            color: var(--text-color);
-        }
-
-        .live-indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background-color: #10b981;
-            border-radius: 50%;
-            margin-left: 10px;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-
-        /* 3. E-Commerce Products Section */
-        .products-header {
-            padding: 2rem 5% 0;
-            font-size: 1.8rem;
-            font-weight: bold;
-        }
-
-        .products {
-            padding: 1.5rem 5% 4rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .product-card {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .product-card:hover { 
-            transform: translateY(-10px); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .product-img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            background-color: #cbd5e1;
-        }
-
-        .product-info { 
-            padding: 1.5rem; 
-        }
-
-        .product-title { 
-            font-size: 1.3rem; 
-            margin: 0 0 0.5rem 0; 
-        }
-
-        .product-price { 
-            color: var(--accent-color); 
-            font-weight: 800; 
-            font-size: 1.5rem; 
-        }
-
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color);
-            color: #ffffff;
-            text-align: center;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 1.5rem;
-            transition: background-color 0.2s;
-        }
-
-        .btn:hover { 
-            background-color: var(--accent-color); 
-            color: #000000;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            header { flex-direction: column; gap: 1rem; }
-            nav a { margin: 0 10px; }
-        }
-    </style>
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-    <!-- Header & Brand Logo -->
-    <header>
-        <div class="brand-logo">LuxeBrand</div>
-        <nav>
-            <a href="#">Store</a>
-            <a href="#">Categories</a>
-            <a href="#">Cloud Sync</a>
-            <a href="#">Cart (3)</a>
-        </nav>
-    </header>
+<!-- ================= TOP BAR ================= -->
 
-    <!-- Real-Time Dashboard -->
-    <div class="dashboard-header">Live Sales Dashboard <span class="live-indicator"></span></div>
-    <section class="dashboard">
-        <div class="stat-card">
-            <h3>Active Customers on Site</h3>
-            <div class="value" id="active-users">245</div>
-        </div>
-        <div class="stat-card">
-            <h3>Orders Today</h3>
-            <div class="value" id="today-orders">89</div>
-        </div>
-        <div class="stat-card">
-            <h3>Total Revenue (Live)</h3>
-            <div class="value" id="live-revenue">₹1,24,500</div>
-        </div>
-    </section>
+<div class="top-bar">
+  <div>🚚 Free Shipping on orders above ₹999</div>
+  <div>💰 Cash on Delivery Available</div>
+  <div>↩️ 7 Days Easy Returns</div>
+</div>
 
-    <!-- E-Commerce Storefront -->
-    <div class="products-header">Premium Collection</div>
-    <section class="products">
-        
-        <!-- Product 1 -->
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Smart Watch" class="product-img">
-            <div class="product-info">
-                <h3 class="product-title">Luxury Smartwatch Series X</h3>
-                <div class="product-price">₹12,999</div>
-                <button class="btn" onclick="addOrder(12999)">Add to Cart</button>
-            </div>
-        </div>
 
-        <!-- Product 2 -->
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Headphones" class="product-img">
-            <div class="product-info">
-                <h3 class="product-title">Noise Cancelling Headphones</h3>
-                <div class="product-price">₹8,499</div>
-                <button class="btn" onclick="addOrder(8499)">Add to Cart</button>
-            </div>
-        </div>
+<!-- ================= HEADER ================= -->
 
-        <!-- Product 3 -->
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Camera" class="product-img">
-            <div class="product-info">
-                <h3 class="product-title">Vintage DSLR Camera</h3>
-                <div class="product-price">₹45,000</div>
-                <button class="btn" onclick="addOrder(45000)">Add to Cart</button>
-            </div>
-        </div>
+<header class="header">
 
-    </section>
+  <div class="logo-area">
 
-    <!-- JavaScript for Real-Time Dashboard Simulation -->
-    <script>
-        // Real-time Active Users Simulation
-        setInterval(() => {
-            const usersElement = document.getElementById('active-users');
-            let currentUsers = parseInt(usersElement.innerText);
-            // Randomly increase or decrease users by a small amount
-            let change = Math.floor(Math.random() * 11) - 5; 
-            let newUsers = currentUsers + change;
-            usersElement.innerText = newUsers > 50 ? newUsers : 50; // Keep minimum 50
-        }, 3500);
+    <div class="logo-star">✦</div>
 
-        // Function to simulate a new order being placed
-        let totalRevenue = 124500;
-        let totalOrders = 89;
+    <div class="logo-name">
+      RAHI NUR
+    </div>
 
-        function addOrder(price) {
-            totalOrders++;
-            totalRevenue += price;
-            
-            // Update UI with animation effect
-            document.getElementById('today-orders').innerText = totalOrders;
-            document.getElementById('live-revenue').innerText = '₹' + totalRevenue.toLocaleString('en-IN');
-            
-            alert("Item added to cart! Dashboard updated in real-time.");
-        }
-    </script>
+    <div class="logo-sub">
+      OFFICIAL FASHION STORE
+    </div>
+
+    <div class="logo-tagline">
+      FASHION | JEWELRY | ELEGANCE
+    </div>
+
+  </div>
+
+
+  <!-- SEARCH -->
+
+  <div class="search-box">
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search for products..."
+      oninput="searchProducts()"
+    >
+
+    <button onclick="searchProducts()">⌕</button>
+
+  </div>
+
+
+  <!-- HEADER ACTIONS -->
+
+  <div class="header-actions">
+
+    <button onclick="showWishlist()">
+      ♡
+      <span>Wishlist</span>
+    </button>
+
+    <button onclick="openCart()">
+      🛍️
+      <span>Cart <b id="cartCount">0</b></span>
+    </button>
+
+    <button onclick="showLogin()">
+      ♙
+      <span>Login / Register</span>
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav class="navigation">
+
+  <a class="active" href="index.html">
+    HOME
+  </a>
+
+  <a href="#ladies">
+    LADIES FASHION
+  </a>
+
+  <a href="#kids">
+    KIDS FASHION
+  </a>
+
+  <a href="#jewelry">
+    JEWELRY
+  </a>
+
+  <a href="#new">
+    NEW ARRIVALS
+  </a>
+
+  <a href="#bestsellers">
+    BEST SELLERS
+  </a>
+
+  <a class="offer" href="#offers">
+    OFFERS
+  </a>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <p class="hero-small">
+      SHINE WITH ELEGANCE
+    </p>
+
+    <h1>
+      FASHION & JEWELRY
+    </h1>
+
+    <h2>
+      FOR EVERY YOU
+    </h2>
+
+    <p class="hero-description">
+      PREMIUM QUALITY • TRENDY DESIGNS • BEST PRICES
+    </p>
+
+    <button
+      class="gold-button"
+      onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})"
+    >
+      SHOP NOW
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ================= CATEGORIES ================= -->
+
+<section class="section" id="shop">
+
+  <div class="section-title">
+
+    <p>DISCOVER</p>
+
+    <h2>
+      Shop By Category
+    </h2>
+
+  </div>
+
+
+  <div class="category-grid">
+
+    <div
+      class="category-card ladies"
+      onclick="filterCategory('Ladies')"
+    >
+
+      <div>
+        <span>01</span>
+        <h3>Ladies Fashion</h3>
+        <p>Elegant styles for every occasion</p>
+        <button>SHOP NOW →</button>
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card kids"
+      onclick="filterCategory('Kids')"
+    >
+
+      <div>
+        <span>02</span>
+        <h3>Kids Fashion</h3>
+        <p>Beautiful looks for little stars</p>
+        <button>SHOP NOW →</button>
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card jewelry"
+      onclick="filterCategory('Jewelry')"
+    >
+
+      <div>
+        <span>03</span>
+        <h3>Jewelry</h3>
+        <p>Complete your look with elegance</p>
+        <button>SHOP NOW →</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<section class="section products-section">
+
+  <div class="section-title">
+
+    <p>OUR COLLECTION</p>
+
+    <h2>
+      Featured Products
+    </h2>
+
+  </div>
+
+
+  <div class="filter-buttons">
+
+    <button
+      class="filter-active"
+      onclick="filterCategory('All')"
+    >
+      ALL
+    </button>
+
+    <button onclick="filterCategory('Ladies')">
+      LADIES
+    </button>
+
+    <button onclick="filterCategory('Kids')">
+      KIDS
+    </button>
+
+    <button onclick="filterCategory('Jewelry')">
+      JEWELRY
+    </button>
+
+  </div>
+
+
+  <div
+    id="products"
+    class="product-grid"
+  >
+
+  </div>
+
+</section>
+
+
+<!-- ================= PROMOTION ================= -->
+
+<section class="promotion" id="offers">
+
+  <div>
+
+    <p>
+      SPECIAL OFFER
+    </p>
+
+    <h2>
+      Elegance At The
+      <span>Best Price</span>
+    </h2>
+
+    <p>
+      Discover our latest collection and enjoy
+      exclusive offers on selected styles.
+    </p>
+
+    <button
+      class="gold-button"
+      onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})"
+    >
+      VIEW OFFERS
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section class="about">
+
+  <div>
+
+    <p class="section-label">
+      OUR STORY
+    </p>
+
+    <h2>
+      Welcome to Rahi Nur
+    </h2>
+
+  </div>
+
+
+  <div>
+
+    <p>
+      Rahi Nur Official Fashion Store brings together
+      modern fashion, timeless elegance and beautiful
+      accessories under one roof.
+    </p>
+
+    <p>
+      From ladies fashion and kidswear to jewelry,
+      every piece is selected with style and quality
+      in mind.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+  <div class="footer-brand">
+
+    <h2>
+      RAHI NUR
+    </h2>
+
+    <p>
+      OFFICIAL FASHION STORE
+    </p>
+
+    <small>
+      FASHION • JEWELRY • ELEGANCE
+    </small>
+
+  </div>
+
+
+  <div class="footer-links">
+
+    <h3>Quick Links</h3>
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="#shop">
+      Shop
+    </a>
+
+    <a href="#offers">
+      Offers
+    </a>
+
+    <a href="checkout.html">
+      Checkout
+    </a>
+
+  </div>
+
+
+  <div class="footer-links">
+
+    <h3>Customer Care</h3>
+
+    <a href="#">
+      Contact Us
+    </a>
+
+    <a href="#">
+      Shipping Policy
+    </a>
+
+    <a href="#">
+      Return Policy
+    </a>
+
+    <a href="#">
+      Privacy Policy
+    </a>
+
+  </div>
+
+
+  <div class="footer-links">
+
+    <h3>Manage Store</h3>
+
+    <a href="admin.html">
+      Admin Panel
+    </a>
+
+  </div>
+
+</footer>
+
+
+<div class="copyright">
+
+  © 2026 Rahi Nur Official Fashion Store.
+  All Rights Reserved.
+
+</div>
+
+
+<!-- ================= CART DRAWER ================= -->
+
+<div
+  id="cartDrawer"
+  class="cart-drawer"
+>
+
+  <div class="cart-header">
+
+    <h2>
+      Your Cart
+    </h2>
+
+    <button onclick="closeCart()">
+      ✕
+    </button>
+
+  </div>
+
+
+  <div
+    id="cartItems"
+    class="cart-items"
+  >
+
+  </div>
+
+
+  <div class="cart-footer">
+
+    <div class="cart-total">
+
+      <span>
+        Total
+      </span>
+
+      <strong id="cartTotal">
+        ₹0
+      </strong>
+
+    </div>
+
+    <a
+      href="checkout.html"
+      class="gold-button checkout-button"
+    >
+      CHECKOUT
+    </a>
+
+  </div>
+
+</div>
+
+
+<div
+  id="overlay"
+  class="overlay"
+  onclick="closeCart()"
+></div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="assets/js/store.js"></script>
+
 </body>
 </html>
